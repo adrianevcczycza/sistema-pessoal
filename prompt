@@ -1,0 +1,789 @@
+Crie um sistema web pessoal de organização chamado provisoriamente “Meu Espaço”, com interface em português do Brasil. O objetivo é reunir finanças, rotina, estudos, saúde e documentos em um só lugar, com uma experiência moderna, delicada, minimalista e fácil de usar.
+
+## Tecnologias e arquitetura
+- Front-end: Next.js com JavaScript.
+- API: Java com Spring Boot, expondo endpoints REST.
+- Persistência: PostgreSQL.
+- Hospedagem: front-end na Vercel e API e banco de dados no Render.
+- Código-fonte versionado no GitHub.
+- O front-end deve consumir a API Java; não duplicar regras de negócio em funções do Next.js.
+- Organize a aplicação em módulos claros. Mantenha configurações e credenciais em variáveis de ambiente; nunca exponha segredos no front-end ou no repositório.
+- Se alguma integração externa exigir credenciais ou uma decisão não especificada, identifique o requisito e documente como configurá-lo, sem inventar dados ou serviços conectados.
+
+## Navegação
+Crie uma barra lateral com estas áreas:
+1. Visão geral
+2. Contabilidade e investimentos
+3. Academia e treinos
+4. Alimentação saudável
+5. Estudos e cadernos virtuais
+6. Projetos
+7. Certificados e documentos
+8. Configurações
+
+A barra lateral deve poder ser recolhida, destacar a seção atual e funcionar bem em telas menores.
+
+## Visão geral
+A página inicial deve mostrar:
+- Data e hora atuais, usando o fuso horário America/Sao_Paulo por padrão.
+- Agenda de tarefas, com opção para criar, editar, concluir e reabrir tarefas.
+- Indicador visual para tarefas concluídas e tarefas próximas do prazo.
+- Cotação do dólar e do euro em reais, com fonte e horário da última atualização.
+- Notícias importantes do dia, com título, fonte, horário e link para a publicação original.
+- Resumos e atalhos para as outras áreas do sistema.
+
+Dados externos, como cotações e notícias, devem vir de fontes ou APIs configuradas. Não invente valores, manchetes ou indicações de atualização. Se uma integração estiver indisponível, mostre claramente a última atualização disponível ou informe que os dados não puderam ser carregados.
+
+## Módulos
+### Contabilidade e investimentos
+Permita registrar e consultar receitas, despesas, categorias, orçamento e investimentos. Mostre resumos claros por período e deixe explícito que os dados são informativos, não aconselhamento financeiro.
+
+### Academia e treinos
+Permita organizar treinos, exercícios, dias de treino e observações de progresso. Apresente as informações de forma simples e fácil de atualizar.
+
+### Alimentação saudável
+Permita registrar refeições, alimentos e anotações sobre hábitos alimentares. Não apresente recomendações médicas nem trate sugestões como substituto de orientação profissional.
+
+### Estudos e cadernos virtuais
+Permita criar cadernos, matérias e anotações. Inclua busca e organização por título, matéria e data.
+
+### Projetos
+Permita criar projetos com descrição, etapas ou tarefas, prazo e estado de andamento.
+
+### Certificados e documentos
+Permita cadastrar informações de certificados e documentos e fazer upload de arquivos. Os arquivos devem ser privados, acessíveis apenas à pessoa autenticada e armazenados com segurança — nunca em um diretório público ou com links públicos permanentes. Inclua nome, categoria, data e opção para excluir.
+
+## Design e acessibilidade
+- Interface minimalista, atual, delicada e realista, sem excesso de elementos decorativos.
+- Disponibilize dois temas: modo claro com rosa como cor de destaque e modo escuro com verde como cor de destaque.
+- Use cores suaves, bom contraste, tipografia legível, espaçamento consistente e componentes visuais discretos.
+- Garanta layout responsivo para celular, tablet e desktop.
+- Inclua estados de carregamento, listas vazias, mensagens de erro compreensíveis e confirmações para ações importantes.
+- Use rótulos acessíveis, navegação por teclado e indicadores visíveis de foco.
+
+## Segurança e qualidade
+- Proteja as áreas pessoais com autenticação e autorização.
+- Valide dados no front-end e na API; aplique também as validações necessárias no servidor.
+- Proteja uploads por tipo e tamanho, e não permita acesso não autorizado a documentos.
+- Não registre senhas, tokens ou conteúdo sensível em logs.
+- Crie testes para as funcionalidades principais e para os endpoints da API.
+- Inclua instruções de configuração local, variáveis de ambiente, execução, testes e publicação.
+- Evite dados fictícios apresentados como reais. Se usar dados de demonstração, identifique-os claramente.
+
+## Forma de trabalho
+Antes de implementar, examine os arquivos existentes e preserve o que já estiver funcionando. Em seguida, explique brevemente a estrutura proposta e implemente o sistema em etapas coerentes, mantendo o front-end integrado à API Java. Ao concluir, execute os testes e informe o que foi implementado, como rodar o projeto e quais integrações externas ainda precisam ser configuradas.
+
+Crie uma aplicação web completa de organização pessoal para Adriane, em português do Brasil, reunindo rotina, finanças, investimentos, academia, alimentação saudável, estudos, projetos, prompts, documentos e planejamento da primeira casa.
+
+O sistema deve ser funcional, responsivo e integrado a uma API e banco de dados. Todas as informações e marcações devem permanecer salvas após atualizar a página ou sair da conta.
+
+### 1. Tecnologias e arquitetura
+
+Utilizar:
+
+- **Front-end:** JavaScript com Next.js e React.
+- **Estilização:** Tailwind CSS.
+- **API:** Java com Spring Boot.
+- **Autenticação:** Spring Security.
+- **Banco de dados:** PostgreSQL.
+- **Versionamento:** Git e GitHub.
+- **Hospedagem do front-end:** Vercel.
+- **Hospedagem da API:** Render.
+- **Arquivos:** armazenamento privado de objetos.
+
+O Next.js será responsável pela interface. As regras de negócio, autenticação e acesso aos dados devem ficar na API Spring Boot, organizada em controllers, services, repositories e DTOs.
+
+Usar migrações versionadas para o banco. Configurar credenciais e URLs por variáveis de ambiente, fornecendo um arquivo de exemplo sem segredos.
+
+Não utilizar o disco temporário da hospedagem como armazenamento permanente de documentos.
+
+### 2. Identidade visual
+
+Criar um design atual, delicado, realista e minimalista, com aparência de aplicação pronta para uso.
+
+Utilizar:
+
+- Espaçamento confortável entre elementos.
+- Tipografia limpa, como Inter.
+- Ícones finos e consistentes.
+- Cartões com cantos arredondados.
+- Bordas suaves e sombras discretas.
+- Animações rápidas e sutis.
+- Formulários organizados e legíveis.
+- Fotografias apenas quando contribuírem para o conteúdo.
+
+Evitar excesso de decoração, gradientes fortes, cores saturadas e telas sobrecarregadas.
+
+Disponibilizar **dois temas visuais completos**, selecionáveis nas configurações:
+
+| Elemento | Tema rosa | Tema verde |
+|---|---|---|
+| Fundo principal | Off-white `#FAF8F7` | Off-white `#F7F9F6` |
+| Cor principal | Rosa antigo `#A65F78` | Verde sálvia escuro `#50735B` |
+| Superfície secundária | Rosa claro `#F5E8ED` | Verde claro `#E8F0E7` |
+| Cartões | Branco `#FFFFFF` | Branco `#FFFFFF` |
+| Texto principal | Cinza escuro `#29272A` | Cinza escuro `#272D29` |
+| Bordas | Rosa acinzentado claro | Verde acinzentado claro |
+
+Verificar contraste, principalmente em textos, botões e estados de foco. Usar tons claros como superfícies, mantendo textos e ações principais em cores suficientemente escuras.
+
+Aplicar o tema em todas as áreas e preservar a preferência da usuária.
+
+### 3. Estrutura e navegação
+
+No computador, usar menu lateral fixo e recolhível. No celular, adaptar para um menu compacto.
+
+O menu deve conter:
+
+1. Visão geral.
+2. Agenda e tarefas.
+3. Contabilidade e investimentos.
+4. Academia e treinos.
+5. Alimentação saudável.
+6. Estudos e cadernos.
+7. Projetos e prompts.
+8. Nossa primeira casa.
+9. Certificados e documentos.
+10. Configurações.
+
+Destacar a página atual e manter padrões consistentes de botões, filtros, formulários e navegação.
+
+No cabeçalho, apresentar o título da página, data, horário e acesso às configurações da conta.
+
+### 4. Login e acesso privado
+
+O sistema será de uso pessoal, com uma única conta autorizada e sem cadastro público.
+
+**E-mail autorizado:** adriane.wegg@gmail.com.
+
+A senha inicial será configurada privadamente no servidor. Não inserir a senha no código, no repositório, no navegador, em exemplos ou em logs.
+
+Implementar:
+
+- Hash de senha com BCrypt ou algoritmo equivalente.
+- Sessão com cookies HttpOnly e Secure.
+- Expiração de sessão.
+- Proteção contra CSRF conforme a estratégia de autenticação.
+- CORS restrito aos domínios autorizados.
+- Limitação de tentativas de login.
+- Logout.
+- Alteração de senha mediante confirmação da senha atual.
+- Proteção de todas as páginas e endpoints privados.
+
+A autorização deve ser verificada no servidor, inclusive para arquivos e downloads.
+
+Criar uma tela de login delicada e minimalista, seguindo o tema selecionado, com campos de e-mail e senha, botão para mostrar ou ocultar a senha e mensagens claras de erro.
+
+### 5. Visão geral
+
+Criar um painel inicial com saudação personalizada e informações úteis para o dia.
+
+Apresentar:
+
+- Data completa e dia da semana.
+- Relógio atualizado, inicialmente no fuso America/Sao_Paulo.
+- Agenda do dia.
+- Tarefas pendentes e atrasadas.
+- Opção de concluir tarefas diretamente pelo painel.
+- Resumo financeiro do mês.
+- Próximo treino.
+- Próximas provas e trabalhos.
+- Projetos em andamento.
+- Progresso do checklist da primeira casa.
+- Cotação do dólar e do euro em reais.
+- Notícias importantes do dia.
+
+Disponibilizar atalhos para adicionar tarefa, despesa, anotação, projeto, item de compra e documento.
+
+Permitir escolher quais cartões aparecem no painel e sua ordem. Organizar os conteúdos em uma hierarquia clara, sem colocar todas as informações com o mesmo destaque.
+
+### 6. Agenda e tarefas
+
+Permitir criar, visualizar, editar, concluir, reabrir e excluir tarefas.
+
+Cada tarefa poderá conter:
+
+- Título.
+- Descrição.
+- Categoria.
+- Data e horário.
+- Prazo.
+- Prioridade.
+- Recorrência.
+- Lembrete.
+- Vínculo com estudo, projeto, treino ou compra.
+
+Oferecer visualizações diária, semanal, mensal e em lista.
+
+Disponibilizar filtros por categoria, período, prioridade e situação. Identificar tarefas pendentes, atrasadas e concluídas com rótulos e ícones, sem depender apenas das cores.
+
+Permitir marcar tarefas com caixas de seleção. Manter o histórico das conclusões e solicitar confirmação em exclusões relevantes.
+
+Lembretes dentro da aplicação devem funcionar. Notificações do navegador só devem ser ativadas após autorização da usuária.
+
+### 7. Contabilidade e investimentos
+
+Criar uma área de controle financeiro pessoal.
+
+**Lançamentos financeiros**
+
+Permitir cadastrar:
+
+- Receitas.
+- Despesas.
+- Contas.
+- Categorias.
+- Formas de pagamento.
+- Transferências entre contas.
+- Lançamentos recorrentes.
+- Compras parceladas.
+
+Cada lançamento deve ter descrição, valor, categoria, conta, data de competência, vencimento e situação de pagamento, conforme aplicável.
+
+Apresentar:
+
+- Receitas e despesas do mês.
+- Saldo realizado.
+- Compromissos previstos.
+- Orçamento por categoria.
+- Visão mensal e anual.
+- Gráficos simples.
+- Metas de economia.
+- Filtros e pesquisa.
+
+Separar valores previstos de valores efetivamente pagos ou recebidos. Evitar contar transferências e aportes como despesas de consumo.
+
+Usar valores decimais apropriados para dinheiro, incluindo BigDecimal na API.
+
+**Investimentos**
+
+Permitir registrar:
+
+- Instituição.
+- Tipo de investimento.
+- Objetivo.
+- Aportes.
+- Resgates.
+- Datas.
+- Saldo informado.
+- Histórico de atualização.
+
+Distinguir dados manuais de informações obtidas por integração. Não apresentar projeções como resultados garantidos.
+
+### 8. Academia e treinos
+
+Permitir criar fichas por dia, objetivo e grupo muscular.
+
+Cada exercício poderá conter:
+
+- Nome.
+- Séries.
+- Repetições.
+- Carga.
+- Descanso.
+- Observações.
+- Link opcional de demonstração.
+
+Durante o treino, permitir marcar exercícios concluídos e registrar a carga utilizada.
+
+Disponibilizar:
+
+- Calendário de treinos.
+- Histórico de sessões.
+- Evolução das cargas.
+- Frequência semanal e mensal.
+- Metas pessoais.
+- Registro opcional de peso e medidas.
+- Observações sobre a execução.
+
+Distinguir ficha planejada de treino realizado. Preservar o histórico quando a ficha for alterada.
+
+Tratar os registros como privados e utilizar linguagem respeitosa, sem julgamentos sobre aparência ou corpo.
+
+### 9. Alimentação saudável
+
+Criar uma área para organizar a alimentação e acompanhar a hidratação.
+
+Disponibilizar:
+
+- Planejamento semanal de refeições.
+- Café da manhã, almoço, jantar e lanches.
+- Receitas favoritas.
+- Ingredientes e modo de preparo.
+- Número de porções.
+- Lista de compras de alimentos.
+- Registro diário de água.
+- Meta de hidratação configurável.
+- Preferências e restrições alimentares.
+- Registro de orientações recebidas de nutricionista.
+
+Permitir adicionar os ingredientes de uma receita à lista de compras, ajustar quantidades e marcar produtos adquiridos.
+
+Manter a lista de alimentos separada das compras da primeira casa, permitindo filtrar as duas em uma visão geral de compras.
+
+Informações nutricionais devem indicar fonte ou condição de estimativa. Não apresentar dietas clínicas geradas automaticamente como orientação profissional.
+
+### 10. Estudos e cadernos virtuais
+
+Permitir criar cadernos por curso, disciplina ou assunto.
+
+Organizar o conteúdo em:
+
+- Cadernos.
+- Seções.
+- Páginas.
+
+Disponibilizar editor de texto rico com:
+
+- Títulos e subtítulos.
+- Negrito e itálico.
+- Listas.
+- Checklists.
+- Tabelas.
+- Links.
+- Imagens.
+- Anexos.
+- Blocos de código.
+
+Oferecer:
+
+- Salvamento automático com indicação de status.
+- Pesquisa em títulos e conteúdo.
+- Favoritos.
+- Etiquetas.
+- Reordenação das páginas.
+- Datas de criação e atualização.
+- Exportação das anotações.
+- Plano de estudos.
+- Agenda de provas e trabalhos.
+- Registro de sessões de estudo.
+
+Preservar alterações temporariamente em caso de falha de conexão e indicar quando houver conteúdo ainda não sincronizado com o servidor.
+
+Sanitizar o conteúdo do editor antes de exibi-lo.
+
+### 11. Projetos e prompts
+
+**Projetos**
+
+Permitir criar projetos pessoais, acadêmicos e profissionais.
+
+Cada projeto poderá conter:
+
+- Título.
+- Descrição.
+- Objetivo.
+- Prazo.
+- Status.
+- Tarefas.
+- Checklist.
+- Anotações.
+- Links.
+- Arquivos.
+- Prompts associados.
+
+Disponibilizar visualização em lista e quadro Kanban com as etapas:
+
+- Planejamento.
+- Em andamento.
+- Em revisão.
+- Concluído.
+
+Calcular o progresso com base nas tarefas concluídas, deixando claro o critério utilizado.
+
+**Biblioteca de prompts**
+
+Permitir criar, editar, organizar e copiar prompts.
+
+Cada prompt poderá conter:
+
+- Título.
+- Categoria.
+- Objetivo.
+- Texto completo.
+- Campos variáveis.
+- Favoritos.
+- Histórico de versões.
+- Projeto associado.
+
+Incluir modelos editáveis para planejamento de projetos, estudos, apresentações, documentação e ideias de negócios.
+
+A biblioteca deve funcionar sem depender de inteligência artificial. Uma integração futura poderá ser adicionada separadamente.
+
+### 12. Nossa primeira casa
+
+Criar uma área completa para organizar o que é necessário para a casa, acompanhar compras e controlar o orçamento.
+
+Usar a planilha fornecida como base para importar os **110 itens**, preservando seus dados e classificações.
+
+Disponibilizar as abas:
+
+- Visão geral.
+- Checklist da casa.
+- Lista de compras.
+- Planejamento.
+
+Seguir integralmente os temas rosa e verde do sistema.
+
+**12.1. Visão geral da casa**
+
+Apresentar cartões com:
+
+- Orçamento planejado.
+- Orçamento disponível.
+- Total gasto.
+- Valor estimado das compras pendentes.
+- Quantidade de itens resolvidos.
+- Quantidade de itens que ainda precisam ser comprados.
+
+Exibir progresso geral e por ambiente.
+
+Separar os totais de itens essenciais, condicionais e opcionais.
+
+**12.2. Checklist da casa**
+
+O checklist deve representar tudo o que a casa precisa, incluindo itens que já existem ou foram recebidos de presente.
+
+Organizar pelos ambientes presentes na planilha e permitir criar novos ambientes.
+
+Cada item poderá conter:
+
+- Identificador.
+- Ambiente.
+- Nome.
+- Descrição.
+- Quantidade necessária.
+- Quantidade já disponível.
+- Quantidade faltante.
+- Prioridade.
+- Situação.
+- Observações.
+
+Permitir indicar a origem das quantidades disponíveis:
+
+- Já temos.
+- Ganhamos.
+- Compramos.
+
+Oferecer também a opção “Não precisamos”, retirando o item das pendências e do cálculo de progresso.
+
+Um mesmo item poderá ter quantidades de origens diferentes. Exemplo: de quatro cadeiras necessárias, duas já existem e duas precisam ser compradas.
+
+Permitir:
+
+- Adicionar, editar e excluir itens.
+- Marcar itens como resolvidos.
+- Filtrar pendentes e concluídos.
+- Filtrar por ambiente e prioridade.
+- Pesquisar pelo nome.
+- Selecionar vários itens.
+- Adicionar itens pendentes à lista de compras.
+
+Ao concluir manualmente um item, solicitar a origem e a quantidade disponível para manter os registros coerentes.
+
+Itens que vocês já possuem ou ganharam devem contar como resolvidos, sem gerar despesa.
+
+**12.3. Lista de compras da casa**
+
+A lista de compras deve conter os itens que ainda precisam ser adquiridos.
+
+Disponibilizar o botão “Adicionar às compras” no checklist, individualmente e para múltiplos itens.
+
+Cada item de compra deve conter:
+
+- Vínculo com o checklist.
+- Ambiente.
+- Nome.
+- Quantidade faltante.
+- Prioridade.
+- Teto de preço unitário.
+- Subtotal previsto.
+- Período planejado de compra.
+- Situação.
+- Links das lojas.
+- Observações.
+
+Permitir criar um item diretamente pela lista de compras, adicionando automaticamente seu correspondente ao checklist.
+
+Evitar duplicidade ao adicionar novamente um item já vinculado.
+
+Usar os estados:
+
+- A comprar.
+- Pesquisando.
+- Parcialmente comprado.
+- Comprado.
+
+**12.4. Registro de compras**
+
+Ao registrar uma compra, abrir um formulário com:
+
+- Quantidade adquirida.
+- Valor total efetivamente pago.
+- Frete, quando aplicável.
+- Loja.
+- Data.
+- Forma de pagamento.
+- Observações.
+- Nota fiscal opcional.
+- Garantia opcional.
+
+Uma compra parcial deve reduzir a quantidade faltante e manter o restante pendente.
+
+Ao concluir a quantidade necessária, atualizar automaticamente o checklist.
+
+Permitir corrigir ou desfazer uma compra, recalculando quantidades e totais. Não permitir quantidades ou valores negativos.
+
+Distinguir a aquisição do item de sua entrega. Permitir registrar entrega prevista e recebimento, sem exigir esses campos para todas as compras.
+
+**12.5. Comparação de preços**
+
+Preservar os links de pesquisa da planilha.
+
+Utilizar as URLs da aba “Links completos”, evitando importar mensagens de erro das células de hiperlink.
+
+Apresentar botões:
+
+- Ver na Magalu.
+- Ver no Mercado Livre.
+- Ver na Amazon.
+
+Permitir adicionar outras lojas e registrar:
+
+- Produto ou modelo.
+- Loja.
+- Preço.
+- Frete.
+- Custo total.
+- URL.
+- Data da consulta.
+- Observações.
+
+Comparar o custo total considerando quantidade e frete.
+
+Identificar os preços da planilha como **preços-alvo de referência**, e os links como **pesquisas de produtos**. Não apresentá-los como ofertas atuais ou descontos confirmados.
+
+Não prometer atualização automática de preços sem uma integração implementada e autorizada.
+
+**12.6. Planejamento e cálculos**
+
+Permitir organizar compras por mês, prioridade e ambiente.
+
+Utilizar as seguintes regras:
+
+- Quantidade faltante = quantidade necessária menos quantidade disponível, com mínimo zero.
+- Subtotal previsto = quantidade planejada para compra × teto unitário.
+- Total gasto = soma das compras registradas, incluindo fretes contabilizados uma única vez.
+- Previsão de compras pendentes = soma das quantidades faltantes × respectivos preços-alvo.
+- Previsão total = total gasto + previsão de compras pendentes.
+- Diferença de uma compra = custo real da compra − orçamento previsto para a mesma quantidade.
+
+Para o progresso geral, considerar resolvidos os itens ativos cuja quantidade disponível atenda à necessária. Excluir “Não precisamos” do denominador. Tratar corretamente listas vazias, sem divisão por zero.
+
+Manter valores ainda não informados em branco e distingui-los de zero.
+
+Permitir visualizar cenários com apenas essenciais ou com essenciais, condicionais e opcionais, sem alterar os registros originais.
+
+**12.7. Integração com finanças e documentos**
+
+Ao registrar uma compra, oferecer a opção de criar uma despesa vinculada na contabilidade.
+
+Não criar lançamentos financeiros duplicados. Manter o vínculo para que correções sejam refletidas de forma consistente.
+
+Notas fiscais e garantias devem aparecer também na área de documentos, vinculadas à compra e protegidas por autenticação.
+
+**12.8. Importação da planilha**
+
+Importar os 110 itens com uma etapa de conferência antes de confirmar.
+
+Preservar:
+
+- Ambiente.
+- Item ou kit.
+- Quantidade.
+- Teto unitário.
+- Prioridade.
+- Quando comprar.
+- Observações.
+- Situação da compra.
+- Valores preenchidos.
+- URLs das lojas.
+
+Calcular os totais a partir dos registros importados. Não depender de totais fixos ou mensagens de erro presentes na planilha.
+
+Repetir a importação não deve duplicar itens silenciosamente. Apresentar registros novos, existentes e conflitantes para revisão.
+
+**12.9. Design da área**
+
+No computador, oferecer tabela com cabeçalho claro, filtros e ações por item. No celular, utilizar cartões.
+
+Usar caixas de seleção delicadas, etiquetas de prioridade, barras de progresso e botões discretos.
+
+Destacar ações como “Adicionar item”, “Adicionar às compras” e “Registrar compra”, mantendo o restante da interface visualmente leve.
+
+### 13. Certificados e documentos
+
+Permitir enviar, organizar, pesquisar, visualizar e baixar PDFs, imagens e outros formatos expressamente permitidos.
+
+Cada arquivo poderá conter:
+
+- Título.
+- Categoria.
+- Descrição.
+- Etiquetas.
+- Instituição.
+- Data de emissão.
+- Validade.
+- Vínculo com projeto, estudo ou compra.
+
+Para certificados, incluir:
+
+- Nome do curso.
+- Instituição.
+- Carga horária.
+- Data de conclusão.
+
+Calcular o total de horas dos certificados cadastrados.
+
+Validar tamanho e tipo real dos arquivos. Guardá-los em armazenamento privado e autorizar cada acesso.
+
+Usar links temporários quando necessário. Não disponibilizar documentos por URLs públicas permanentes.
+
+Solicitar confirmação antes de excluir arquivos.
+
+### 14. Dólar e euro em reais
+
+Exibir as cotações USD/BRL e EUR/BRL por uma integração externa real.
+
+Apresentar:
+
+- Moeda.
+- Valor em reais.
+- Fonte.
+- Data e horário da atualização.
+- Variação, quando disponibilizada pela fonte.
+
+Informar que se trata de cotação de referência e que valores de compras ou câmbio podem ser diferentes.
+
+Atualizar periodicamente, respeitando os limites do provedor, com cache no servidor.
+
+Se a integração falhar, mostrar o último valor disponível com indicação de desatualização. Se não houver dados anteriores, apresentar estado de indisponibilidade.
+
+Não inventar valores nem apresentar dados demonstrativos como atuais. Manter chaves de API no servidor.
+
+### 15. Notícias do dia
+
+Exibir notícias relevantes do Brasil e do mundo usando API ou feeds de fontes identificadas.
+
+Cada notícia deve conter:
+
+- Título.
+- Veículo.
+- Data de publicação.
+- Imagem, quando disponível e permitida.
+- Resumo curto fornecido ou permitido pela fonte.
+- Link para a matéria original.
+
+Permitir filtrar por atualidades, economia, tecnologia e educação.
+
+Exibir o horário da última atualização e evitar notícias duplicadas.
+
+Distinguir data de publicação da data de atualização. Não apresentar notícias antigas como acontecimentos do dia.
+
+Se a integração estiver indisponível, comunicar isso claramente. Não inventar manchetes.
+
+### 16. Configurações
+
+Permitir:
+
+- Alternar entre rosa e verde.
+- Personalizar os cartões da visão geral.
+- Ajustar fuso horário.
+- Gerenciar categorias.
+- Configurar lembretes.
+- Alterar a senha.
+- Exportar dados pessoais.
+- Encerrar a sessão.
+
+Persistir as preferências no servidor.
+
+### 17. Experiência e qualidade
+
+Todos os botões visíveis devem funcionar.
+
+Implementar estados de:
+
+- Carregamento.
+- Lista vazia.
+- Sucesso.
+- Erro.
+- Falta de conexão.
+- Integração não configurada.
+
+Usar mensagens claras em português. Validar dados no navegador e na API.
+
+Garantir:
+
+- Navegação por teclado.
+- Foco visível.
+- Rótulos acessíveis.
+- Contraste adequado.
+- Layout sem rolagem horizontal desnecessária no celular.
+- Paginação ou carregamento progressivo em listas extensas.
+- Confirmação para ações destrutivas.
+- Proteção contra cliques repetidos que criem registros duplicados.
+
+Usar dados demonstrativos somente quando identificados e separados dos dados reais.
+
+### 18. Segurança, persistência e arquivos
+
+Manter informações financeiras, documentos, anotações e registros pessoais privados.
+
+Não registrar senhas, tokens ou conteúdo privado em logs.
+
+Validar uploads, sanitizar conteúdo rico, proteger consultas e aplicar autorização em todas as operações.
+
+Documentar a configuração de backups do banco e do armazenamento de arquivos, além do procedimento de restauração.
+
+Tratar o banco de dados como fonte principal dos registros. Armazenamento local do navegador pode apoiar preferências temporárias e recuperação de rascunhos, mas não substituir a persistência no servidor.
+
+### 19. Entregáveis
+
+Entregar:
+
+- Código do front-end.
+- Código da API.
+- Migrações do banco.
+- Documentação dos endpoints.
+- Arquivo de exemplo de variáveis de ambiente sem credenciais.
+- Instruções para execução local.
+- Instruções para publicação na Vercel e no Render.
+- Configuração documentada de armazenamento privado.
+- Processo de criação da conta autorizada.
+- Processo de importação da planilha da primeira casa.
+
+Caso uma integração dependa de credencial ainda não fornecida, implementar o tratamento de indisponibilidade e documentar o que falta configurar.
+
+### 20. Critérios de conclusão
+
+Verificar os fluxos principais:
+
+- Login, logout e bloqueio de acesso não autorizado.
+- Criação e conclusão de tarefas.
+- Persistência e cálculos financeiros.
+- Registro de investimentos.
+- Criação e execução de treinos.
+- Planejamento alimentar e lista de ingredientes.
+- Criação e salvamento automático de cadernos.
+- Organização de projetos e cópia de prompts.
+- Importação dos 110 itens da primeira casa.
+- Checklist com itens próprios, recebidos e comprados.
+- Lista de compras sem duplicidade.
+- Compra parcial e atualização da quantidade restante.
+- Integração de compras com despesas e documentos.
+- Upload e download privado de arquivos.
+- Alternância entre os temas rosa e verde.
+- Funcionamento em computador, tablet e celular.
+- Tratamento de falhas das cotações e notícias.
+
+O resultado deve ser uma plataforma pessoal completa, delicada e organizada, com navegação simples, dados persistidos e integração funcional entre as áreas.
